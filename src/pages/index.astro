@@ -1,0 +1,81 @@
+---
+import Layout from "@/app/layouts/Layout.astro";
+import { FaSolidLink, FaBrandsLinkedin, FaBrandsGithub } from "solid-icons/fa";
+import { getCollection } from "astro:content";
+import { BlogCard } from "@/components/blog/BlogCard";
+import Animation from "@/app/components/Animation.astro";
+import { SITE_DESCRIPTION, SOSMED } from "@/app/static/consts";
+
+const posts = await getCollection("blog");
+const recentPosts = posts
+  .sort(
+    (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+  )
+  .slice(0, 3);
+---
+
+<Layout title="Home | mahdysyafiq.com" description="Mahdy Syafiq's Development Blog">
+  <Animation>
+    <div class="flex flex-col items-start mx-2">
+
+      <!--Title-->
+      <div class="py-8"> 
+        <h1 class="space-y-2 lg:space-y-4">
+          <div class="text-2xl lg:text-6xl font-mono font-extrabold text-white">
+            Hi, I am
+          </div>
+          <div class="relative">
+            <div class="text-6xl lg:text-8xl font-extrabold flex">
+              <div class="bg-gray-800 px-4 lg:px-8 text-white">Mahdy Syafiq</div>
+            </div>
+          </div>
+        </h1> 
+      </div>
+
+      <p class="mt-8 my-5 text-xl text-gray text-justify">
+        {SITE_DESCRIPTION}.
+        You can also follow me on:
+      </p>
+
+      <div class="flex gap-2 text-gray">
+        <a
+          href={SOSMED.linkedin}
+          class="hover:text-black transition-colors"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Mahdy Syafiq's LinkedIn profile"
+        >
+          <FaBrandsLinkedin size={24} />
+        </a>
+        <a
+          href={SOSMED.github}
+          class="hover:text-black transition-colors"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Mahdy Syafiq's GitHub profile"
+        >
+          <FaBrandsGithub size={24} />
+        </a>
+      </div>
+    </div>
+
+    <section>
+      <div class="mt-16">
+        <Animation delay={0.2}>
+          <h2 class="text-2xl mb-4 text-slate-600 dark:text-slate-400">
+            Recent Posts
+          </h2>
+        </Animation>
+        <div class="grid grid-cols-1 gap-6">
+          {
+            recentPosts.map((post, index) => (
+              <Animation delay={0.3 + index * 0.1}>
+                <BlogCard post={post} />
+              </Animation>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </Animation>
+</Layout>

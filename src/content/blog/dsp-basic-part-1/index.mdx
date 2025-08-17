@@ -1,0 +1,105 @@
+---
+title: "DSP Basics - Part 1"
+summary: "Let’s explore Digital Signal Processing from scratch, with some fun Python experiments."
+date: 2021-08-17
+tags: ["dsp", "python", "signal-processing", "beginner"]
+categories: "learning"
+image: "/images/blog/dsp-basic-part-1/test.png"
+draft: false
+---
+import { Image } from "astro:assets"; 
+import myImage from "public/images/blog/dsp-basic-part-1/test.png";
+
+# DSP Basics - Part 1
+
+<Image src={myImage} alt="folders" />
+
+## Hey, what’s DSP anyway?
+
+If you’re like me, the first time you hear *Digital Signal Processing* your brain probably goes:  
+> “Uhh… that sounds like NASA-level math. Not for me.”
+
+But hold on. DSP is actually just a fancy name for something pretty simple:  
+**it’s about taking signals (things that change over time) and playing with them using math.**
+
+- A song on Spotify? → It’s a signal of air pressure over time.  
+- Your heartbeat on a smartwatch? → A signal of voltage in your body.  
+- Even the temperature throughout the day? → Yep, also a signal.  
+
+So basically: if it changes over time and you can measure it → it’s a signal. DSP is how we make sense of it.
+
+---
+
+## Why *Digital*?
+
+Okay, so signals in real life are smooth and continuous. Like drawing a curve.  
+But computers don’t do curves. They only do dots.  
+
+Think of it like this:  
+- A beautiful painting (continuous) → you take a photo of it (discrete).  
+- Or, a smooth circle → made out of LEGO blocks.  
+
+That process of turning a smooth signal into dots is called **sampling**. And that’s step 1 in DSP.
+
+---
+
+## The Big Ideas
+
+Here are the core tools we’ll eventually use (don’t worry, we’ll go one by one):
+
+- **Sampling** → Take snapshots of the signal.  
+- **Frequency** → How often something repeats (heartbeat vs. mosquito buzz).  
+- **Fourier Transform** → The “X-ray vision” of signals; it shows the hidden ingredients (frequencies).  
+- **Filtering** → Turn the bass up, kill the noise, boost the treble. Basically EQ for any signal.  
+
+---
+
+## Let’s Code a Baby Step 🐣
+
+Enough theory, let’s actually see something.  
+We’ll make the simplest signal ever: a sine wave. This is the “hello world” of DSP.
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Imagine a clock ticking 1000 times per second
+fs = 1000  # samples per second
+t = np.linspace(0, 1, fs, endpoint=False)
+
+# Let's create a 5 Hz sine wave (5 cycles per second)
+f = 5
+x = np.sin(2 * np.pi * f * t)
+
+plt.plot(t, x)
+plt.title("5 Hz Sine Wave")
+plt.xlabel("Time [s]")
+plt.ylabel("Amplitude")
+plt.show()
+```
+Run this, and boom—you just made your first digital signal.
+It looks like a smooth wave because we sampled it fast enough. Pretty cool, right?
+
+## Cooking Analogy 🍳
+
+Think of DSP like cooking (yes, really):
+- The signal is your raw ingredient.
+- The Fourier transform is the recipe: it tells you what’s inside.
+- Filtering is like choosing which spices to keep or throw away.
+- Sampling is chopping things into small, equal pieces.
+
+Suddenly, DSP is not rocket science—it’s just kitchen science.
+
+## Where We’re Headed
+
+This was just the “getting to know each other” part.
+In the next posts, I’ll walk through:
+- Mixing multiple sine waves (like making chords in music 🎵)
+- Seeing signals in frequency land (with FFT)
+- Building simple filters in Python
+- Cleaning up real-world noisy data
+
+DSP is everywhere: music apps, medical devices, video streaming, even the camera on your phone.
+And trust me—once you see how it works, you’ll start recognizing DSP tricks everywhere in daily life.
+
+So… ready to keep going? 🚀
