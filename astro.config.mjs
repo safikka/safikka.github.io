@@ -9,7 +9,6 @@ import pagefind from "astro-pagefind";
 // https://astro.build/config
 export default defineConfig({
   site: "https://safikka.github.com",
-  outDir: "dist/blog",
   build: {
     format: "file",
     inlineStylesheets: "auto",
